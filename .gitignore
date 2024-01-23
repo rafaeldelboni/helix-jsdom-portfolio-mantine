@@ -1,4 +1,8 @@
 node_modules/
+public/app
+public/portfolio
+!public/app/index.html
+!public/portfolio/index.html
 
 /out
 /checkouts
