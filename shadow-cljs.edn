@@ -1,18 +1,28 @@
-{:deps   {:aliases [:dev]} 
+{:deps   {:aliases [:dev]}
+
+ :dev-http {5000 ["public/app"]
+            5001 ["public/portfolio" "classpath:public"]
+            5002 ["out/tests"]}
+
  :builds {:app {:target           :browser
-                :devtools         {:http-port 5000
-                                   :http-root "public"
-                                   :preloads [dev.refresh]
+                :devtools         {:preloads [dev.refresh]
                                    :reload-strategy :full}
+                :output-dir "public/app"
+                :asset-path "/app"
                 :modules          {:main {:init-fn main.app/init}}
                 :compiler-options {:install-deps true}}
- 
+
+          :portfolio {:target :browser
+                      :devtools         {:preloads [dev.refresh]
+                                         :reload-strategy :full}
+                      :output-dir "public/portfolio"
+                      :asset-path "/portfolio"
+                      :modules {:main {:init-fn portfolio.core/init}}}
+
           :tests {:target    :browser-test
                   :test-dir  "out/tests"
-                  :ns-regexp "-test$"
-                  :devtools  {:http-port 5001
-                              :http-root "out/tests"}}
-          
+                  :ns-regexp "-test$"}
+
           :node-tests {:target    :node-test
                        :main      node/main
                        :output-to "out/node-tests.js"}}}

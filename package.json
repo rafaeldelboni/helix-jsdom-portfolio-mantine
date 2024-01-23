@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "shadow-cljs watch app tests",
+    "start": "shadow-cljs watch app portfolio tests",
+    "watch": "shadow-cljs watch",
     "test": "shadow-cljs compile node-tests && node out/node-tests.js",
     "test:watch": "shadow-cljs watch node-tests --config-merge \"{:autorun true}\""
   },
