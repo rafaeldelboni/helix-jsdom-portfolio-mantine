@@ -1,1 +1,0 @@
-{"version":3,"sources":["portfolio/core.cljs"],"mappings":";AAKA,sBAAA,tBAAMA;AAAN,AAEE,OAACC","names":["portfolio.core/init","portfolio.ui/start!"],"sourcesContent":["(ns portfolio.core\n  (:require [portfolio.ui :as ui]\n            [portfolio.scenes.component-scene]))\n\n#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}\n(defn init\n  []\n  (ui/start!))\n"]}
