@@ -1,11 +1,11 @@
 (ns portfolio.scenes.component-scene
-  (:require [helix.core :refer [$]]
+  (:require ["@mantine/core" :refer [MantineProvider]]
+            [helix.core :refer [$]]
             [helix.dom :as d]
             [helix.hooks :as hooks]
             [main.component :as c]
             [main.lib :refer [defnc]]
             [portfolio.react-18 :refer-macros [defscene]]))
-
 
 (defnc counter []
   (let [[count set-count] (hooks/use-state 0)]
@@ -23,3 +23,9 @@
 
 (defscene component-boolean-false
   ($ c/component-boolean {:value false}))
+
+(defscene mantine-button
+  ($ MantineProvider {:theme c/theme}
+     ($ c/button {:text "My Button"
+                  :on-click #(js/console.log "clicked!")
+                  :color "blue"})))

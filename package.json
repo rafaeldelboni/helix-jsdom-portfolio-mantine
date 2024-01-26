@@ -1,23 +1,36 @@
 {
-  "name": "memento",
+  "name": "helix-jsdom-portfolio-mantine",
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "shadow-cljs watch app portfolio tests",
-    "watch": "shadow-cljs watch",
+    "watch:css:app": "postcss src/css/app.css -w --dir public/app --verbose",
+    "watch:shadow": "shadow-cljs watch app portfolio tests",
+    "release:css": "postcss src/css/app.css --dir public/app",
+    "release:shadow": "shadow-cljs release app",
+    "test:watch": "shadow-cljs watch node-tests --config-merge \"{:autorun true}\"",
     "test": "shadow-cljs compile node-tests && node out/node-tests.js",
-    "test:watch": "shadow-cljs watch node-tests --config-merge \"{:autorun true}\""
+    "start": "conc npm:watch:*",
+    "release": "conc npm:release:*"
   },
   "dependencies": {
+    "@mantine/core": "^7.4.2",
+    "@mantine/hooks": "^7.4.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-refresh": "^0.13.0"
   },
   "devDependencies": {
     "@testing-library/react": "^14.1.2",
+    "concurrently": "^8.2.2",
+    "cssnano": "^6.0.3",
     "global-jsdom": "9.0.1",
     "jsdom": "22.0.0",
     "jsdom-global": "3.0.2",
+    "postcss": "^8.4.33",
+    "postcss-cli": "^11.0.0",
+    "postcss-import": "^16.0.0",
+    "postcss-preset-mantine": "^1.12.3",
+    "postcss-simple-vars": "^7.0.1",
     "shadow-cljs": "^2.26.5"
   }
 }

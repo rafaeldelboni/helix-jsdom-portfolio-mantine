@@ -1,0 +1,8 @@
+@import "@mantine/core/styles.css";
+
+.demo {
+  font-size: rem(16px);
+  @media (min-width: em(320px)) {
+    font-size: rem(32px);
+  }
+}

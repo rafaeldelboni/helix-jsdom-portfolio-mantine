@@ -1,6 +1,9 @@
-# helix-jsdom-portfolio
+# helix-jsdom-portfolio-mantine
 
-A simple project to setup jsdom, portfolio with helix and shadow-cljs.
+A simple project to setup and evaluate mantine, jsdom, portfolio, helix and shadow-cljs.
+
+## TODO
+- [ ] Fix weird bug on portfolio + mantine css
 
 ## How to use
 ```bash
@@ -30,3 +33,10 @@ npm run watch app tests
 # Start application, tests and portfolio
 npm run watch app tests portfolio
 ```
+
+## Used software
+- [shadow-cljs](https://github.com/thheller/shadow-cljs)
+- [helix](https://github.com/lilactown/helix)
+- [jsdom](https://github.com/jsdom/jsdom)
+- [portfolio](https://github.com/cjohansen/portfolio)
+- [mantine](https://github.com/mantinedev/mantine)

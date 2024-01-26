@@ -1,7 +1,7 @@
 {:deps   {:aliases [:dev]}
 
- :dev-http {5000 ["public/app"]
-            5001 ["public/portfolio" "classpath:public"]
+ :dev-http {5000 ["public" "public/app"]
+            5001 ["public" "public/portfolio" "classpath:public"]
             5002 ["out/tests"]}
 
  :builds {:app {:target           :browser
@@ -13,8 +13,6 @@
                 :compiler-options {:install-deps true}}
 
           :portfolio {:target :browser
-                      :devtools         {:preloads [dev.refresh]
-                                         :reload-strategy :full}
                       :output-dir "public/portfolio"
                       :asset-path "/portfolio"
                       :modules {:main {:init-fn portfolio.core/init}}}

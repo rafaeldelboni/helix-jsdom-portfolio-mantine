@@ -1,1 +1,2 @@
-{:hooks {:analyze-call {main.lib/defnc clj-kondo.lilactown.helix/defnc}}}
+{:hooks {:analyze-call {main.lib/defnc clj-kondo.lilactown.helix/defnc}}
+ :lint-as {portfolio.react-18/defscene clojure.test/deftest}}

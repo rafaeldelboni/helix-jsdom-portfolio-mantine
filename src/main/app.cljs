@@ -1,17 +1,17 @@
 (ns main.app
-  (:require ["react-dom/client" :as rdom]
+  (:require ["@mantine/core" :refer [MantineProvider]]
+            ["react-dom/client" :as rdom]
             [helix.core :refer [$]]
-            [helix.dom :as d]
-            [main.lib :refer [defnc]]
-            [main.component :as c]))
+            [main.component :refer [theme app-shell]]
+            [main.lib :refer [defnc]]))
 
 (defnc app []
-  (d/div (d/h1 "helix-jsdom") 
-         ($ c/component-boolean {:value true})))
+  ($ MantineProvider {:theme theme}
+     ($ app-shell)))
 
 (defonce root
-  (rdom/createRoot 
-    (js/document.getElementById "app")))
+  (rdom/createRoot
+   (js/document.getElementById "app")))
 
 (defn render []
   (.render root ($ app)))

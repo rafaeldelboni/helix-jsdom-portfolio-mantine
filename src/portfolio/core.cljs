@@ -1,8 +1,8 @@
 (ns portfolio.core
-  (:require [portfolio.ui :as ui]
-            [portfolio.scenes.component-scene]))
+  (:require [portfolio.scenes.component-scene]
+            [portfolio.ui :as ui]))
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn init
   []
-  (ui/start!))
+  (ui/start! {:config {:css-paths ["/app/app.css"]}}))
