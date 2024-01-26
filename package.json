@@ -3,10 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "watch:css:app": "postcss src/css/app.css -w --dir public/app --verbose",
-    "watch:shadow": "shadow-cljs watch app portfolio tests",
+    "watch:css": "postcss src/css/app.css -w --dir public/app --verbose",
+    "watch:clj": "shadow-cljs watch app portfolio tests",
     "release:css": "postcss src/css/app.css --dir public/app",
-    "release:shadow": "shadow-cljs release app",
+    "release:clj": "shadow-cljs release app",
     "test:watch": "shadow-cljs watch node-tests --config-merge \"{:autorun true}\"",
     "test": "shadow-cljs compile node-tests && node out/node-tests.js",
     "start": "conc npm:watch:*",
