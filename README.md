@@ -25,13 +25,13 @@ Tests available at http://localhost:5002
 ### Select which project run
 ```bash
 # Start application
-npm run watch app
+npx shadow-cljs watch app
 
 # Start application and tests
-npm run watch app tests
+npx shadow-cljs watch app tests
 
 # Start application, tests and portfolio
-npm run watch app tests portfolio
+npx shadow-cljs watch app tests portfolio
 ```
 
 ## Used software
