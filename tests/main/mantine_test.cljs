@@ -10,14 +10,14 @@
             [shadow.cljs.modern :refer [defclass]]))
 
 (defn mock-window-fns []
-  (let [mock-fn (fn [& args] (js/console.debug args))
+  (let [mock-fn (fn [& _args] nil)
         get-computed-style (.-getComputedStyle js/window)
         resize-observer (defclass ResizeObserver
-                          (constructor [this] (js/console.debug this))
+                          (constructor [this] nil)
                           Object
-                          (observe [this & args] (js/console.debug this args))
-                          (unobserve [this & args] (js/console.debug this args))
-                          (disconnect [this & args] (js/console.debug this args)))]
+                          (observe [this & args] nil)
+                          (unobserve [this & args] nil)
+                          (disconnect [this & args] nil))]
 
     (set! (.-getComputedStyle js/window)
           (fn [elt]
@@ -51,15 +51,14 @@
                  :href "www.example.com/b"})))
 
 (deftest mantine-test
-  (testing "drawer should render component links"
+  (testing "should render mantine component links"
 
     (async done
            (p/let [_ (tlr/render ($ MantineProvider ($ MyNavLinks)))
-                   links (tlr/waitFor #(.getByTestId tld/screen "link-groups"))]
+                   groups (tlr/waitFor #(.getByTestId tld/screen "link-groups"))
+                   links (.querySelectorAll groups ".mantine-NavLink-root")]
 
              (is (= ["a" "b"]
-                    (doall
-                     (map #(-> % .-href (str/split "/") last)
-                          (.querySelectorAll links ".mantine-NavLink-root")))))
+                    (mapv #(-> % .-href (str/split "/") last) links)))
 
              (done)))))
