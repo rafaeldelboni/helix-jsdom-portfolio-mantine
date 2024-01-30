@@ -1,6 +1,6 @@
 (ns main.app-test
   (:require ["@testing-library/react" :as tlr]
-            [clojure.test :refer [deftest is use-fixtures]]
+            [cljs.test :refer [deftest is use-fixtures]]
             [helix.core :refer [$]]
             [main.component :as c]))
 

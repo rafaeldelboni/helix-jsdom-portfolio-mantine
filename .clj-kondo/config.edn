@@ -1,2 +1,4 @@
 {:hooks {:analyze-call {main.lib/defnc clj-kondo.lilactown.helix/defnc}}
+ :config-in-call {shadow.cljs.modern/defclass
+                  {:linters {:unresolved-symbol {:level :off}}}}
  :lint-as {portfolio.react-18/defscene clojure.test/deftest}}
