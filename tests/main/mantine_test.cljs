@@ -1,9 +1,8 @@
 (ns main.mantine-test
   (:require ["@mantine/core" :refer [Group MantineProvider NavLink]]
-            ["@testing-library/dom" :as tld]
             ["@testing-library/react" :as tlr]
-            [clojure.string :as str]
             [cljs.test :refer [async deftest is testing use-fixtures]]
+            [clojure.string :as str]
             [helix.core :refer [$]]
             [main.lib :refer [defnc]]
             [promesa.core :as p]
@@ -40,8 +39,8 @@
           resize-observer)))
 
 (use-fixtures :each
-  {:before #(async done (mock-window-fns) (done))
-   :after #(async done (tlr/cleanup) (done))})
+  {:before mock-window-fns
+   :after tlr/cleanup})
 
 (defnc MyNavLinks []
   ($ Group {:data-testid "link-groups"}
@@ -52,13 +51,16 @@
 
 (deftest mantine-test
   (testing "should render mantine component links"
-
     (async done
-           (p/let [_ (tlr/render ($ MantineProvider ($ MyNavLinks)))
-                   groups (tlr/waitFor #(.getByTestId tld/screen "link-groups"))
-                   links (.querySelectorAll groups ".mantine-NavLink-root")]
+      (p/catch
+        (p/let [groups (tlr/waitFor #(-> (tlr/render
+                                          ($ MantineProvider ($ MyNavLinks)))
+                                         (.getByTestId "link-groups")))
+                links (->> (.querySelectorAll groups ".mantine-NavLink-root")
+                           (mapv #(-> % .-href (str/split "/") last)))]
 
-             (is (= ["a" "b"]
-                    (mapv #(-> % .-href (str/split "/") last) links)))
+          (is (= ["a" "b"]
+                 links))
 
-             (done)))))
+          (done))
+        (fn [err] (js/console.error err))))))
