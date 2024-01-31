@@ -4,7 +4,7 @@ A simple project to setup and evaluate mantine, jsdom, portfolio, helix and shad
 
 ## TODO
 - [ ] Fix: Weird bug on portfolio + mantine css [Issue](https://github.com/cjohansen/portfolio/issues/21)
-- [ ] Fix: Mantine not working on JSDOM [tests](https://github.com/rafaeldelboni/helix-jsdom-portfolio-mantine/blob/main/tests/main/mantine_test.cljs) probably related to use non mocked browser functions [Mock Web Apis](https://mantine.dev/guides/jest/#mock-web-apis)
+- [x] Fix: Mantine not working on JSDOM [tests](https://github.com/rafaeldelboni/helix-jsdom-portfolio-mantine/blob/main/tests/main/mantine_test.cljs) probably related to use non mocked browser functions [Mock Web Apis](https://mantine.dev/guides/jest/#mock-web-apis)
 
 ## How to use
 ```bash
