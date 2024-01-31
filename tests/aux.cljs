@@ -30,6 +30,9 @@
                                         :dispatchEvent mock-fn})})
 
     (set! (.-ResizeObserver js/window)
+          resize-observer)
+
+    (set! (.-ResizeObserver js/global)
           resize-observer)))
 
 (defn async-setup []
