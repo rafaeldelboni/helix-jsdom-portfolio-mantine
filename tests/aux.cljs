@@ -3,7 +3,8 @@
             [shadow.cljs.modern :refer [defclass]]))
 
 (defn mock-window-fns []
-  (let [mock-fn (fn [& _args] nil)
+  (let [has-global? (try js/global (catch js/Object _ nil))
+        mock-fn (fn [& _args] nil)
         get-computed-style (.-getComputedStyle js/window)
         resize-observer (defclass ResizeObserver
                           (constructor [this] nil)
@@ -32,8 +33,9 @@
     (set! (.-ResizeObserver js/window)
           resize-observer)
 
-    (set! (.-ResizeObserver js/global)
-          resize-observer)))
+    (when has-global?
+      (set! (.-ResizeObserver js/global)
+            resize-observer))))
 
 (defn async-setup []
   (mock-window-fns))
