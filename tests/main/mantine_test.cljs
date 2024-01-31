@@ -25,7 +25,7 @@
       (p/catch
         (p/let [groups (tlr/waitFor #(-> (tlr/render
                                           ($ MantineProvider ($ MyNavLinks)))
-                                         (.getByTestId "link-groups")))
+                                         (.findByTestId "link-groups")))
                 links (->> (.querySelectorAll groups ".mantine-NavLink-root")
                            (mapv #(-> % .-href (str/split "/") last)))]
 
@@ -33,4 +33,6 @@
                  links))
 
           (done))
-        (fn [err] (js/console.error err))))))
+        (fn [err]
+          (is (= nil err))
+          (done))))))
