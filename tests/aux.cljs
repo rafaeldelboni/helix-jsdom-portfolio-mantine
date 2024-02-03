@@ -46,3 +46,20 @@
 (defn sync-setup [f]
   (f)
   (tlr/cleanup))
+
+(defn screen [] (tlr/within js/document))
+
+(defn get-by-text [text]
+  (.getByText (screen) text))
+
+(defn find-by-text [text]
+  (.findByText (screen) text))
+
+(defn get-all-by-role [role]
+  (.getAllByRole (screen) role))
+
+(defn click! [element]
+  (.click tlr/fireEvent element))
+
+(defn ->text [element]
+  (.-text element))
