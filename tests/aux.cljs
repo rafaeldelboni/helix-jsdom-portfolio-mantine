@@ -47,19 +47,23 @@
   (f)
   (tlr/cleanup))
 
-(defn screen [] (tlr/within js/document))
+(defn render [component] 
+  (tlr/render component))
+
+(defn screen [] 
+  (tlr/within js/document))
 
 (defn get-by-text [text]
   (.getByText (screen) text))
-
-(defn find-by-text [text]
-  (.findByText (screen) text))
 
 (defn get-all-by-role [role]
   (.getAllByRole (screen) role))
 
 (defn click! [element]
   (.click tlr/fireEvent element))
+
+(defn wait [f]
+  (tlr/waitFor f))
 
 (defn ->text [element]
   (.-text element))

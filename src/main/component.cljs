@@ -3,6 +3,7 @@
             ["@mantine/hooks" :refer [useDisclosure]]
             [helix.core :refer [$ <>]]
             [helix.dom :as d]
+            [helix.hooks :as hooks]
             [main.lib :refer [defnc]]))
 
 (def theme
@@ -20,6 +21,12 @@
 
 (defnc button [{:keys [color on-click text]}]
   ($ Button {:color color :onClick on-click} text))
+
+(defnc counter []
+  (let [[count set-count] (hooks/use-state 0)]
+    (d/div
+     (d/p "Count: " count)
+     ($ button {:color "blue" :on-click #(set-count inc) :text "Increase"}))))
 
 (defnc app-shell []
   (let [[opened fns] (useDisclosure)
