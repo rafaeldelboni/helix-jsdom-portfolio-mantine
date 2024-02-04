@@ -47,10 +47,10 @@
   (f)
   (tlr/cleanup))
 
-(defn render [component] 
+(defn render [component]
   (tlr/render component))
 
-(defn screen [] 
+(defn screen []
   (tlr/within js/document))
 
 (defn get-by-text [text]

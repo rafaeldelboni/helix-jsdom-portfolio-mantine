@@ -1,5 +1,6 @@
 (ns main.component
-  (:require ["@mantine/core" :refer [createTheme AppShell Burger Button Group Skeleton]]
+  (:require ["@mantine/core" :refer [AppShell Burger Button createTheme Group
+                                     Skeleton]]
             ["@mantine/hooks" :refer [useDisclosure]]
             [helix.core :refer [$ <>]]
             [helix.dom :as d]
@@ -25,8 +26,8 @@
 (defnc counter []
   (let [[count set-count] (hooks/use-state 0)]
     (d/div
-     (d/p "Count: " count)
-     ($ button {:color "blue" :on-click #(set-count inc) :text "Increase"}))))
+      (d/p "Count: " count)
+      ($ button {:color "blue" :on-click #(set-count inc) :text "Increase"}))))
 
 (defnc app-shell []
   (let [[opened fns] (useDisclosure)
@@ -55,4 +56,4 @@
                      :on-click #(js/console.log "clicked!")
                      :color "yellow-king"})
           (d/p
-           ($ component-boolean {:value true}))))))
+            ($ component-boolean {:value true}))))))

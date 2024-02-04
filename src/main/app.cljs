@@ -2,7 +2,7 @@
   (:require ["@mantine/core" :refer [MantineProvider]]
             ["react-dom/client" :as rdom]
             [helix.core :refer [$]]
-            [main.component :refer [theme app-shell]]
+            [main.component :refer [app-shell theme]]
             [main.lib :refer [defnc]]))
 
 (defnc app []
