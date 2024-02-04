@@ -2,9 +2,7 @@
   (:require ["@mantine/core" :refer [MantineProvider]]
             [helix.core :refer [$]]
             [helix.dom :as d]
-            [helix.hooks :as hooks]
             [main.component :as c]
-            [main.lib :refer [defnc]]
             [portfolio.react-18 :refer-macros [defscene]]))
 
 (defscene mantine-helix-hooks-counter

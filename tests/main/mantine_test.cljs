@@ -1,14 +1,12 @@
 (ns main.mantine-test
-  (:require ["@mantine/core" :refer [Group MantineProvider NavLink Button]]
-            [aux :as aux :refer [get-all-by-role get-by-text click! wait ->text]]
-            [test-lib :refer [async]]
+  (:require ["@mantine/core" :refer [Group MantineProvider NavLink]]
+            [aux :as aux :refer [->text click! get-all-by-role get-by-text
+                                 wait]]
             [cljs.test :refer [deftest is testing use-fixtures]]
-            [clojure.string :as str]
             [helix.core :refer [$]]
-            [helix.dom :as d]
             [main.component :as c]
             [main.lib :refer [defnc]]
-            [promesa.core :as p]))
+            [test-lib :refer [async]]))
 
 (defn render [component]
   (aux/render ($ MantineProvider component)))
