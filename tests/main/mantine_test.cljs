@@ -24,9 +24,9 @@
 
 (deftest mantine-test-sync
   (testing "should render mantine component links"
-     (render ($ MyNavLinks))
-     (is (= ["a" "b"]
-            (map ->text (get-all-by-role "link"))))))
+    (render ($ MyNavLinks))
+    (is (= ["a" "b"]
+           (map ->text (get-all-by-role "link"))))))
 
 (deftest mantine-test-async
   (testing "should render counter, after click, should change state to 1"

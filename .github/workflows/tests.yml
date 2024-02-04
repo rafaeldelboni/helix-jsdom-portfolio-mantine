@@ -36,7 +36,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: |
         npm ci
-        npm run test:node
+        npm run test
 
   check-lint:
      strategy:
