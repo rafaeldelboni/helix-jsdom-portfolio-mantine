@@ -1,12 +1,17 @@
 (ns main.mantine-test
-  (:require ["@mantine/core" :refer [Group MantineProvider NavLink]]
-            ["@testing-library/react" :as tlr]
-            [aux :as aux]
-            [cljs.test :refer [async deftest is testing use-fixtures]]
+  (:require ["@mantine/core" :refer [Group MantineProvider NavLink Button]]
+            [aux :as aux :refer [get-all-by-role get-by-text click! wait ->text]]
+            [test-lib :refer [async]]
+            [cljs.test :refer [deftest is testing use-fixtures]]
             [clojure.string :as str]
             [helix.core :refer [$]]
+            [helix.dom :as d]
+            [main.component :as c]
             [main.lib :refer [defnc]]
             [promesa.core :as p]))
+
+(defn render [component]
+  (aux/render ($ MantineProvider component)))
 
 (use-fixtures :each
   {:before aux/async-setup
@@ -19,20 +24,16 @@
      ($ NavLink {:label "b"
                  :href "www.example.com/b"})))
 
-(deftest mantine-test
+(deftest mantine-test-sync
   (testing "should render mantine component links"
-    (async done
-      (p/catch
-        (p/let [groups (tlr/waitFor #(-> (tlr/render
-                                          ($ MantineProvider ($ MyNavLinks)))
-                                         (.findByTestId "link-groups")))
-                links (->> (.querySelectorAll groups ".mantine-NavLink-root")
-                           (mapv #(-> % .-href (str/split "/") last)))]
+     (render ($ MyNavLinks))
+     (is (= ["a" "b"]
+            (map ->text (get-all-by-role "link"))))))
 
-          (is (= ["a" "b"]
-                 links))
-
-          (done))
-        (fn [err]
-          (is (= nil err))
-          (done))))))
+(deftest mantine-test-async
+  (testing "should render counter, after click, should change state to 1"
+    (async
+      (render ($ c/counter))
+      (is (some? (get-by-text "Count: 0")))
+      (click! (get-by-text "Increase"))
+      (wait #(is (some? (get-by-text "Count: 1")))))))

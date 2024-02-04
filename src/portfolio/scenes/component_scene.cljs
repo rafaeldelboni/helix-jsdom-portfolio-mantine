@@ -7,15 +7,10 @@
             [main.lib :refer [defnc]]
             [portfolio.react-18 :refer-macros [defscene]]))
 
-(defnc counter []
-  (let [[count set-count] (hooks/use-state 0)]
-    (d/div
-     (d/p "Count: " count)
-     (d/button {:on-click #(set-count inc)} "Increase"))))
-
-(defscene helix-counter
-  :title "Counter with React Hooks"
-  ($ counter))
+(defscene mantine-helix-hooks-counter
+  :title "Counter with React Hooks and Mantine"
+  ($ MantineProvider {:theme c/theme}
+    ($ c/counter)))
 
 (defscene component-boolean-true
   (d/div (d/h1 "helix-jsdom")
