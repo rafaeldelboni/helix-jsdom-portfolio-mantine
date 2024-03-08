@@ -9,12 +9,16 @@
     "release:clj": "shadow-cljs release app",
     "test:watch": "shadow-cljs watch node-tests --config-merge \"{:autorun true}\"",
     "test": "shadow-cljs compile node-tests && node out/node-tests.js",
-    "start": "conc npm:watch:*",
-    "release": "conc npm:release:*"
+    "start": "conc -c auto npm:watch:*",
+    "release": "conc -c auto npm:release:* && npm run bundle:optimize",
+    "bundle": "esbuild --bundle public/app/lib.js --outfile=public/app/lib.bundle.js",
+    "watch:bundle": "npm run bundle -- --watch",
+    "bundle:optimize": "npm run bundle --  --analyze --metafile=.bundle.meta.json --define:NODE_ENV=production --minify"
   },
   "dependencies": {
     "@mantine/core": "^7.4.2",
     "@mantine/hooks": "^7.4.2",
+    "esbuild": "^0.20.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-refresh": "^0.13.0"

@@ -1,14 +1,13 @@
 (ns main.component
-  (:require ["@mantine/core" :refer [AppShell Burger Button createTheme Group
-                                     Skeleton]]
-            ["@mantine/hooks" :refer [useDisclosure]]
+  (:require ["@mantine/core" :as mc]
+            ["@mantine/hooks" :as mh]
             [helix.core :refer [$ <>]]
             [helix.dom :as d]
             [helix.hooks :as hooks]
             [main.lib :refer [defnc]]))
 
 (def theme
-  (createTheme
+  (mc/createTheme
    (clj->js
     {:colors {:deep-blue ["#eef3ff" "#dce4f5" "#b9c7e2" "#94a8d0" "#748dc1" "#5f7cb8" "#5474b4" "#44639f" "#39588f" "#2d4b81"]
               :yellow-king ["#fafae8" "#f0f1da" "#e0e1b9" "#cfd094" "#c0c274" "#b7b95f" "#b2b454" "#9c9e44" "#8a8c39" "#767a2b"]}
@@ -21,7 +20,7 @@
   (<> (if value "yes" "no")))
 
 (defnc button [{:keys [color on-click text]}]
-  ($ Button {:color color :onClick on-click} text))
+  ($ mc/Button {:color color :onClick on-click} text))
 
 (defnc counter []
   (let [[count set-count] (hooks/use-state 0)]
@@ -30,27 +29,27 @@
       ($ button {:color "blue" :on-click #(set-count inc) :text "Increase"}))))
 
 (defnc app-shell []
-  (let [[opened fns] (useDisclosure)
+  (let [[opened fns] (mh/useDisclosure)
         {:keys [toggle]} (js->clj fns :keywordize-keys true)]
-    ($ AppShell {:padding "md"
-                 :header #js {:height 60}
-                 :navbar #js {:width 300
-                              :breakpoint "md"
-                              :collapsed #js {:mobile (not opened)}}}
+    ($ mc/AppShell {:padding "md"
+                    :header #js {:height 60}
+                    :navbar #js {:width 300
+                                 :breakpoint "md"
+                                 :collapsed #js {:mobile (not opened)}}}
 
-       ($ AppShell.Header
-          ($ Group {:h "100%" :px "md"}
-             ($ Burger {:opened opened
-                        :onClick toggle
-                        :hiddenFrom "sm"
-                        :size "sm"})
+       ($ mc/AppShell.Header
+          ($ mc/Group {:h "100%" :px "md"}
+             ($ mc/Burger {:opened opened
+                           :onClick toggle
+                           :hiddenFrom "sm"
+                           :size "sm"})
              (d/div "Helix + Mantine")))
 
-       ($ AppShell.Navbar {:p "md"}
+       ($ mc/AppShell.Navbar {:p "md"}
           (for [index (range 10)]
-            ($ Skeleton {:key index :h 28 :mt "sm" :animate false})))
+            ($ mc/Skeleton {:key index :h 28 :mt "sm" :animate false})))
 
-       ($ AppShell.Main
+       ($ mc/AppShell.Main
           (d/h1 "helix-jsdom-portfolio-mantine")
           ($ button {:text "My Button"
                      :on-click #(js/console.log "clicked!")
