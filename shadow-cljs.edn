@@ -10,7 +10,11 @@
                 :output-dir "public/app"
                 :asset-path "/app"
                 :modules          {:main {:init-fn main.app/init}}
-                :compiler-options {:install-deps true}}
+                :compiler-options {:install-deps true}
+                :js-options 
+                {:js-provider :external
+                    :external-index "public/app/lib.js"
+                    :external-index-format :esm}}
 
           :portfolio {:target :browser
                       :output-dir "public/portfolio"
