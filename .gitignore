@@ -1,7 +1,6 @@
 node_modules/
 public/app
 public/portfolio
-!public/app/index.html
 !public/portfolio/index.html
 !public/portfolio/custom-canvas.html
 

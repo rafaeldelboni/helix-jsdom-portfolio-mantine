@@ -7,14 +7,17 @@
  :builds {:app {:target           :browser
                 :devtools         {:preloads [dev.refresh]
                                    :reload-strategy :full}
-                :output-dir "public/app"
-                :asset-path "/app"
+                :output-dir       "public/app/js"
+                :asset-path       "/js"
                 :modules          {:main {:init-fn main.app/init}}
+                :release          {:module-hash-names true}
                 :compiler-options {:install-deps true}
-                :js-options 
-                {:js-provider :external
-                    :external-index "public/app/lib.js"
-                    :external-index-format :esm}}
+                :js-options       {:js-provider :external
+                                   :external-index "public/app/js/lib.js"
+                                   :external-index-format :esm}
+                :build-hooks      [(shadow.html/copy-file
+                                    "resources/index.src.html"
+                                    "public/app/index.html")]}
 
           :portfolio {:target :browser
                       :output-dir "public/portfolio"
