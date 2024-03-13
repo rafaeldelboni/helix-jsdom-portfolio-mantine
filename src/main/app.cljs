@@ -1,6 +1,6 @@
 (ns main.app
   (:require ["@mantine/core" :refer [MantineProvider]]
-            ["react-dom/client" :as rdom]
+            ["react-dom/client" :refer [createRoot]]
             [helix.core :refer [$]]
             [main.component :refer [app-shell theme]]
             [main.lib :refer [defnc]]))
@@ -10,7 +10,7 @@
      ($ app-shell)))
 
 (defonce root
-  (rdom/createRoot
+  (createRoot
    (js/document.getElementById "app")))
 
 (defn render []
