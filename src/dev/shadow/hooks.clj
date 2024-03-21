@@ -1,8 +1,19 @@
 (ns dev.shadow.hooks
   (:require [clojure.java.io :as io]
+            [clojure.java.shell :as shell]
             [clojure.string :as str]
             [shadow.build :as build]
             [shadow.cljs.util :as util]))
+
+#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
+(defn esbuild
+  {:shadow.build/stages #{:compile-prepare :flush}}
+  [{::build/keys [mode] :as build-state}]
+  (let [result (if (= :release mode)
+                 (shell/sh "npm" "run" "bundle:optimize")
+                 (shell/sh "npm" "run" "bundle"))]
+    (util/log build-state {:type ::esbuild-result :result result})
+    (assoc build-state ::esbuild result)))
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn hashed-files
@@ -13,11 +24,7 @@
           (for [old-file-full-path files]
             (let [old-file (io/file old-file-full-path)
                   old-file-name (.getName old-file)]
-              (if (= :dev mode)
-                {:old-file-full-path old-file-full-path
-                 :old-file-name old-file-name
-                 :new-file-full-path old-file-full-path
-                 :new-file-name old-file-name}
+              (if (= :release mode)
                 (let [contents (slurp old-file-full-path)
                       old-file-path (.getParentFile old-file)
                       new-file-name (str (util/md5hex contents) "." old-file-name)
@@ -27,7 +34,12 @@
                   {:old-file-full-path old-file-full-path
                    :old-file-name old-file-name
                    :new-file-full-path new-file-full-path
-                   :new-file-name new-file-name})))))))
+                   :new-file-name new-file-name})
+
+                {:old-file-full-path old-file-full-path
+                 :old-file-name old-file-name
+                 :new-file-full-path old-file-full-path
+                 :new-file-name old-file-name}))))))
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn replace-hashed-files

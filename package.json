@@ -10,9 +10,8 @@
     "test:watch": "shadow-cljs watch node-tests --config-merge \"{:autorun true}\"",
     "test": "shadow-cljs compile node-tests && node out/node-tests.js",
     "start": "conc -c auto npm:watch:*",
-    "release": "conc -c auto npm:release:* && npm run bundle:optimize",
+    "release": "conc -c auto npm:release:*",
     "bundle": "esbuild --bundle public/app/js/lib.js --outfile=public/app/js/lib.bundle.js",
-    "watch:bundle": "npm run bundle -- --watch",
     "bundle:optimize": "npm run bundle --  --analyze --metafile=.bundle.meta.json --define:NODE_ENV=production --minify"
   },
   "dependencies": {
