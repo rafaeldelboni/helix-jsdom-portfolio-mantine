@@ -8,12 +8,21 @@
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn esbuild
   {:shadow.build/stages #{:compile-prepare :flush}}
-  [{::build/keys [mode] :as build-state}]
-  (let [result (if (= :release mode)
-                 (shell/sh "npm" "run" "bundle:optimize")
-                 (shell/sh "npm" "run" "bundle"))]
-    (util/log build-state {:type ::esbuild-result :result result})
-    (assoc build-state ::esbuild result)))
+  [{::build/keys [mode] :as build-state} bundle outfile]
+  (let [base-cmd ["npx" "esbuild" "--bundle" bundle (str "--outfile=" outfile)]
+        release-cmd (into base-cmd
+                          ["--analyze"
+                           "--metafile=.bundle.meta.json"
+                           "--define:NODE_ENV=production"
+                           "--minify"])
+        result (if (= :release mode)
+                 (apply shell/sh release-cmd)
+                 (apply shell/sh base-cmd))]
+    (if (zero? (:exit result))
+      (do
+        (util/log build-state {:type ::esbuild-result :result result})
+        (assoc build-state ::esbuild result))
+      (util/error build-state {:type ::esbuild-result :result result}))))
 
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn hashed-files
