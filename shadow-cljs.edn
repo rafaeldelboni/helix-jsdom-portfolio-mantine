@@ -10,12 +10,14 @@
                 :output-dir       "public/app/js"
                 :asset-path       "/js"
                 :modules          {:main {:init-fn main.app/init}}
-                :release          {:module-hash-names true}
                 :compiler-options {:install-deps true}
                 :js-options       {:js-provider :external
                                    :external-index "public/app/js/lib.js"
                                    :external-index-format :esm}
-                :build-hooks      [(shadow.html/copy-file
+                :build-hooks      [(dev.shadow.hooks/hashed-files
+                                    ["public/app/app.css"
+                                     "public/app/js/main.js"])
+                                   (dev.shadow.hooks/replace-hashed-files
                                     "resources/index.src.html"
                                     "public/app/index.html")]}
 
